@@ -18,7 +18,7 @@ const scrap = async (isSeoul: boolean) => {
     // Find links in tbody. 
     // On many BBS pages, the links are actually javascript:view('...') calls.
     // Let's try to get all 'a' in tbody and handle them.
-    const rawLinks = await page.$$eval('tbody a', elements => {
+    const rawLinks = await page.$$eval('tbody a', (elements, isSeoul) => {
         const locations = isSeoul ? ['푸른솔', '청운관'] : ['학생회관']
         return locations.map(loc => {
             const el = elements.find(el => el.innerText.includes(loc));
@@ -38,14 +38,14 @@ const scrap = async (isSeoul: boolean) => {
         //         })
         //     } else return null
         // }).filter(link => link !== null)
-        
+
         // elements.map(el => ({
         //     href: el.href,
         //     text: el.innerText.trim(),
         //     onclick: el.getAttribute('onclick')
         // })).slice(0, 2)
-    
-    });
+
+    }, isSeoul);
 
     console.log(`Found ${rawLinks.length} links in tbody.`);
 
@@ -122,5 +122,4 @@ const scrap = async (isSeoul: boolean) => {
     console.log('Done.');
     return true;
 }
-
 export default scrap
