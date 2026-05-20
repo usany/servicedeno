@@ -18,9 +18,9 @@ const scrap = async () => {
     // Find links in tbody. 
     // On many BBS pages, the links are actually javascript:view('...') calls.
     // Let's try to get all 'a' in tbody and handle them.
-    const locations = ['푸른솔', '청운관']
     const rawLinks = await page.$$eval('tbody a', elements => {
-        locations.map(loc => {
+        const locations = ['푸른솔', '청운관']
+        return locations.map(loc => {
             const el = elements.find(el => el.innerText.includes(loc));
             return ({
                 href: el?.href,
