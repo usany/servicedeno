@@ -13,10 +13,11 @@ const scrapText = async (isSeoul: boolean) => {
     console.log('Navigating to the list page...');
     const link = isSeoul ? 'https://www.hufs.ac.kr/hufs/11318/subview.do#click' : 'https://dorm2.khu.ac.kr/50/5030.do#';
     await page.goto(link);
-    await page.waitForSelector('tbody:has(td.menu)');
-    const tbody = await page.locator('tbody:has(td.menu)').innerHTML();
-    console.log(tbody);
+    await page.waitForSelector('td.menu');
+    const menuTexts = await page.locator('td.menu').allInnerTexts();
+    console.log(menuTexts);
 
+    await browser.close();
 }
 const scrap = async (isSeoul: boolean) => {
     const browser = await chromium.launch({ headless: true });
