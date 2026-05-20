@@ -6,7 +6,7 @@ import { fileURLToPath } from 'url'
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-(async () => {
+const scrap = async () => {
     const browser = await chromium.launch({ headless: true });
     const context = await browser.newContext();
     const page = await context.newPage();
@@ -99,4 +99,6 @@ const __dirname = path.dirname(__filename);
 
     await browser.close();
     console.log('Done.');
-})();
+}
+
+export default scrap
