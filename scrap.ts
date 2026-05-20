@@ -28,8 +28,8 @@ const scrap = async () => {
                     text: el.innerText.trim(),
                     onclick: el.getAttribute('onclick')
                 })
-            }
-        })
+            } else return null
+        }).filter(link => link !== null)
         // elements.map(el => ({
         //     href: el.href,
         //     text: el.innerText.trim(),
