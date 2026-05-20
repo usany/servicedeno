@@ -5,10 +5,14 @@ import { fileURLToPath } from 'url'
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const scrapText = async () => {
+const scrapText = async (isSeoul: boolean) => {
     const browser = await chromium.launch({ headless: true });
     const context = await browser.newContext();
     const page = await context.newPage();
+
+    console.log('Navigating to the list page...');
+    const link = isSeoul ? 'https://www.hufs.ac.kr/hufs/11318/subview.do#click' : 'https://dorm2.khu.ac.kr/50/5030.do#';
+    
 }
 const scrap = async (isSeoul: boolean) => {
     const browser = await chromium.launch({ headless: true });
