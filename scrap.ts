@@ -28,7 +28,6 @@ const scrap = async () => {
                 onclick: el?.getAttribute('onclick')
             })
         })
-    } 
         // elements.map(el => {
         //     if (locations.some(loc => el.innerText.includes(loc))) {
         //         locations = locations.filter(loc => !el.innerText.includes(loc));
@@ -45,7 +44,7 @@ const scrap = async () => {
         //     text: el.innerText.trim(),
         //     onclick: el.getAttribute('onclick')
         // })).slice(0, 2)
-    );
+    });
 
     console.log(`Found ${rawLinks.length} links in tbody.`);
 
