@@ -13,8 +13,8 @@ const scrapText = async (isSeoul: boolean) => {
     console.log('Navigating to the list page...');
     const link = isSeoul ? 'https://www.hufs.ac.kr/hufs/11318/subview.do#click' : 'https://www.hufs.ac.kr/hufs/11318/subview.do?enc=Zm5jdDF8QEB8JTJGY2FmZXRlcmlhJTJGaHVmcyUyRjElMkZ2aWV3LmRvJTNGeWVhciUzRDIwMjYlMjZtb250aCUzRDA1JTI2c2VsRGF0ZSUzRDIwMjYwNTIxJTI2c2VsQ2FmSWQlM0RoMTAyJTI2';
     await page.goto(link);
-    await page.waitForSelector('td.menu');
-    const menuTexts = await page.locator('td.menu').allInnerTexts();
+    await page.waitForSelector('td.no-menu, td.menu');
+    const menuTexts = await page.locator('td.no-menu, td.menu').allInnerTexts();
     console.log(menuTexts);
 
     await browser.close();
@@ -136,5 +136,5 @@ const scrap = async (isSeoul: boolean) => {
     console.log('Done.');
     return true;
 }
-scrapText(true)
+scrapText(false)
 export default scrap
