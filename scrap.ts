@@ -6,20 +6,20 @@ import { fileURLToPath } from 'url'
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const scrap = async () => {
+const scrap = async (isSeoul: boolean) => {
     const browser = await chromium.launch({ headless: true });
     const context = await browser.newContext();
     const page = await context.newPage();
 
     console.log('Navigating to the list page...');
-    await page.goto('https://www.khu.ac.kr/kor/user/bbs/BMSR00040/list.do?menuNo=200283');
+    await page.goto(isSeoul ? 'https://www.khu.ac.kr/kor/user/bbs/BMSR00040/list.do?menuNo=200283&catId=136' : 'https://www.khu.ac.kr/kor/user/bbs/BMSR00040/list.do?menuNo=200283&catId=137');
     await page.waitForSelector('tbody');
 
     // Find links in tbody. 
     // On many BBS pages, the links are actually javascript:view('...') calls.
     // Let's try to get all 'a' in tbody and handle them.
     const rawLinks = await page.$$eval('tbody a', elements => {
-        const locations = ['푸른솔', '청운관']
+        const locations = isSeoul ? ['푸른솔', '청운관'] : ['학생회관']
         return locations.map(loc => {
             const el = elements.find(el => el.innerText.includes(loc));
             return ({
