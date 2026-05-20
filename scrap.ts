@@ -16,6 +16,7 @@ const scrapText = async (isSeoul: boolean) => {
     await page.waitForSelector('td.no-menu, td.menu');
     const menuTexts = await page.locator('td.no-menu, td.menu').allInnerTexts();
     console.log(menuTexts);
+    console.log(menuTexts.length);
 
     await browser.close();
 }
