@@ -44,6 +44,7 @@ const scrap = async () => {
         //     text: el.innerText.trim(),
         //     onclick: el.getAttribute('onclick')
         // })).slice(0, 2)
+    
     });
 
     console.log(`Found ${rawLinks.length} links in tbody.`);
