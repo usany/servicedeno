@@ -123,5 +123,5 @@ const scrap = async (isSeoul: boolean) => {
     console.log('Done.');
     return true;
 }
-scrap(false)
+
 export default scrap
