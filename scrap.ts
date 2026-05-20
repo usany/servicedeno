@@ -5,13 +5,13 @@ import { fileURLToPath } from 'url'
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const scrapHufs = async (isI: boolean) => {
+const scrapHufs = async (isStudent: boolean) => {
     const browser = await chromium.launch({ headless: true });
     const context = await browser.newContext();
     const page = await context.newPage();
 
     console.log('Navigating to the list page...');
-    const link = isI ? 'https://www.hufs.ac.kr/hufs/11318/subview.do#click' : 'https://www.hufs.ac.kr/hufs/11318/subview.do?enc=Zm5jdDF8QEB8JTJGY2FmZXRlcmlhJTJGaHVmcyUyRjElMkZ2aWV3LmRvJTNGeWVhciUzRDIwMjYlMjZtb250aCUzRDA1JTI2c2VsRGF0ZSUzRDIwMjYwNTIxJTI2c2VsQ2FmSWQlM0RoMTAyJTI2';
+    const link = isStudent ? 'https://www.hufs.ac.kr/hufs/11318/subview.do#click' : 'https://www.hufs.ac.kr/hufs/11318/subview.do?enc=Zm5jdDF8QEB8JTJGY2FmZXRlcmlhJTJGaHVmcyUyRjElMkZ2aWV3LmRvJTNGeWVhciUzRDIwMjYlMjZtb250aCUzRDA1JTI2c2VsRGF0ZSUzRDIwMjYwNTIxJTI2c2VsQ2FmSWQlM0RoMTAyJTI2';
     await page.goto(link);
     await page.waitForSelector('td.no-menu, td.menu');
     const menuTexts = await page.locator('td.no-menu, td.menu').allInnerTexts();
