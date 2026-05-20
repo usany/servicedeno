@@ -11,7 +11,7 @@ const scrapText = async (isSeoul: boolean) => {
     const page = await context.newPage();
 
     console.log('Navigating to the list page...');
-    const link = isSeoul ? 'https://www.hufs.ac.kr/hufs/11318/subview.do#click' : 'https://dorm2.khu.ac.kr/50/5030.do#';
+    const link = isSeoul ? 'https://www.hufs.ac.kr/hufs/11318/subview.do#click' : 'https://www.hufs.ac.kr/hufs/11318/subview.do?enc=Zm5jdDF8QEB8JTJGY2FmZXRlcmlhJTJGaHVmcyUyRjElMkZ2aWV3LmRvJTNGeWVhciUzRDIwMjYlMjZtb250aCUzRDA1JTI2c2VsRGF0ZSUzRDIwMjYwNTIxJTI2c2VsQ2FmSWQlM0RoMTAyJTI2';
     await page.goto(link);
     await page.waitForSelector('td.menu');
     const menuTexts = await page.locator('td.menu').allInnerTexts();
