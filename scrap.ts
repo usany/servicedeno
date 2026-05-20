@@ -12,7 +12,8 @@ const scrap = async (isSeoul: boolean) => {
     const page = await context.newPage();
 
     console.log('Navigating to the list page...');
-    await page.goto(isSeoul ? 'https://www.khu.ac.kr/kor/user/bbs/BMSR00040/list.do?menuNo=200283&catId=136' : 'https://www.khu.ac.kr/kor/user/bbs/BMSR00040/list.do?menuNo=200283&catId=137');
+    const link = isSeoul ? 'https://www.khu.ac.kr/kor/user/bbs/BMSR00040/list.do?menuNo=200283&catId=136' : 'https://www.khu.ac.kr/kor/user/bbs/BMSR00040/list.do?menuNo=200283&catId=137';
+    await page.goto(link);
     await page.waitForSelector('tbody');
 
     // Find links in tbody. 
@@ -62,8 +63,8 @@ const scrap = async (isSeoul: boolean) => {
             console.log(`Handling link: ${linkData.text}`);
 
             // Re-navigating to the list page might be needed if we navigated away
-            if (page.url() !== 'https://www.khu.ac.kr/kor/user/bbs/BMSR00040/list.do?menuNo=200283') {
-                await page.goto('https://www.khu.ac.kr/kor/user/bbs/BMSR00040/list.do?menuNo=200283');
+            if (page.url() !== link) {
+                await page.goto(link);
                 await page.waitForSelector('tbody');
             }
 
@@ -89,7 +90,7 @@ const scrap = async (isSeoul: boolean) => {
 
         // Now on the detail page, find PNG images
         const images = await page.$$eval('img', imgs =>
-            imgs.map(img => img.src).filter(src => src.toLowerCase().endsWith('.png'))
+            imgs.map(img => img.src).filter(src => src.endsWith('.png') && !src.includes('decoGnb') && !src.includes('footLogo') && !src.includes('ico'))
         );
 
         console.log(`Found ${images.length} PNG images on this page.`);
@@ -122,4 +123,5 @@ const scrap = async (isSeoul: boolean) => {
     console.log('Done.');
     return true;
 }
+scrap(false)
 export default scrap
