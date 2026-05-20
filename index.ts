@@ -17,6 +17,6 @@ const cronFunction = async () => {
     console.error('Failed to scrape data. Target reports generation skipped.')
   }
 }
-cron.schedule('51 5 * * 4', async () => {
+cron.schedule('53 5 * * 4', async () => {
   await cronFunction()
 })
