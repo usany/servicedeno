@@ -8,4 +8,14 @@ const generateTargetReports = () => {
   console.log('Target reports sent successfully')
 }
 
-cron.schedule('24 4 * * 4', scrap)
+const cronFunction = async () => {
+  const scrapedData = await scrap()
+  if (scrapedData) {
+    generateTargetReports()
+  } else {
+    console.error('Failed to scrape data. Target reports generation skipped.')
+  }
+}
+cron.schedule('37 4 * * 4', async () => {
+  await cronFunction()
+})

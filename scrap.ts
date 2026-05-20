@@ -99,6 +99,7 @@ const scrap = async () => {
 
     await browser.close();
     console.log('Done.');
+    return true;
 }
 
 export default scrap
