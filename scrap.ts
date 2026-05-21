@@ -113,7 +113,7 @@ const scrap = async (isSeoul: boolean) => {
             try {
                 // Ensure imgUrl is absolute
                 const absoluteImgUrl = new URL(imgUrl, page.url()).href;
-                const urlParsed = new URL(absoluteImgUrl);
+                // const urlParsed = new URL(absoluteImgUrl);
                 const imageName = title.includes('청운관') ? 'c.png' : title.includes('푸른솔') ? 'p.png' : 'h.png';
                 const localPath = path.join(downloadDir, imageName);
 
