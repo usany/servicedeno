@@ -101,7 +101,7 @@ const scrap = async (isSeoul: boolean) => {
                 continue;
             }
         }
-
+        const title = await page.$eval('p.txt06', p => p.innerText.trim());
         // Now on the detail page, find PNG images
         const images = await page.$$eval('img', imgs =>
             imgs.map(img => img.src).filter(src => src.endsWith('.png') && !src.includes('decoGnb') && !src.includes('footLogo') && !src.includes('ico'))
@@ -114,7 +114,7 @@ const scrap = async (isSeoul: boolean) => {
                 // Ensure imgUrl is absolute
                 const absoluteImgUrl = new URL(imgUrl, page.url()).href;
                 const urlParsed = new URL(absoluteImgUrl);
-                const imageName = path.basename(urlParsed.pathname) || `image_${Date.now()}.png`;
+                const imageName = title.includes('청운관') ? 'c.png' : title.includes('푸른솔') ? 'p.png' : 'h.png';
                 const localPath = path.join(downloadDir, imageName);
 
                 const response = await page.request.get(absoluteImgUrl);
