@@ -1,13 +1,52 @@
-# Welcome to your Expo app
+# University Cafeteria Menu Scraper
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+This project scrapes cafeteria menu images from university websites and uses AI to extract text from the images.
 
-## Get started
+## Features
 
-* visit page and download images
-* from images to texts
-* post images and texts to db
-* generate images based on texts
+* Visit pages and download menu images
+* Extract text from images using AI
+* Schedule automated scraping with cron jobs
+
+## Setup
+
+1. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+2. Install Playwright browsers:
+```bash
+playwright install chromium
+```
+
+3. Set up environment variables (create a `.env` file):
+```
+OPENROUTER_API_KEY=your_openrouter_api_key
+NVIDIA_NIM_API_KEY=your_nvidia_api_key
+```
+
+## Usage
+
+### Run scraper manually:
+```bash
+python scrap.py
+```
+
+### Run AI image text extraction:
+```bash
+python router.py
+```
+
+### Run scheduled scraper:
+```bash
+python index.py
+```
+
+### List available models:
+```bash
+python list_models.py
+```
 
 se1 se2 se3 sehufs1 sehufs2
 ## 푸른솔 교직원식당
