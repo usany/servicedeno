@@ -2,7 +2,7 @@ import 'dotenv/config';
 import OpenAI from 'openai';
 import fs from 'node:fs';
 import path from 'node:path';
-const img = path.join(process.cwd(), 'public', 'applicationImage.jpg');
+const img = path.join(process.cwd(), 'downloads', 'p.png');
 const openai = new OpenAI({
   // baseURL: "https://integrate.api.nvidia.com/v1",
   // apiKey: process.env.NVIDIA_NIM_API_KEY,
@@ -33,7 +33,7 @@ async function main() {
       {
         role: "user",
         content: [
-          { type: "text", text: "what's in this image?" },
+          { type: "text", text: "get weekdays menu list from the image in Korean please." },
           {
             type: "image_url",
             image_url: { url: `data:image/jpeg;base64,${base64Image}` },

@@ -5,6 +5,23 @@ import { fileURLToPath } from 'url'
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const scrapDorm = async () => {
+    const browser = await chromium.launch({ headless: true });
+    const context = await browser.newContext();
+    const page = await context.newPage();
+    console.log('Navigating to the list page...');
+    const link = 'https://dorm2.khu.ac.kr/50/5030.do#'
+    await page.goto(link);
+    await Promise.all([
+        page.waitForNavigation({ waitUntil: 'domcontentloaded' }),
+        page.locator('a').filter({ hasText: '전체보기' }).first().click()
+    ]);
+    await page.waitForSelector('td.te_left');
+    const menuTexts = await page.locator('td.te_left').allInnerTexts();
+    console.log(menuTexts);
+    console.log(menuTexts.length);
+    await browser.close();
+}
 const scrapHufs = async (isStudent: boolean) => {
     const browser = await chromium.launch({ headless: true });
     const context = await browser.newContext();
@@ -138,6 +155,7 @@ const scrap = async (isSeoul: boolean) => {
     return true;
 }
 
-scrap(true)
+// scrap(true)
 // scrapHufs(true)
+scrapDorm()
 export default scrap
