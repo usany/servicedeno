@@ -27,22 +27,27 @@ async function main() {
 
   const imagePath = img;
   const base64Image = fs.readFileSync(imagePath, "base64");
-  const response = await openai.chat.completions.create({
-    model: selection,
-    messages: [
-      {
-        role: "user",
-        content: [
-          { type: "text", text: "get weekdays menu list from the image in Korean please." },
-          {
-            type: "image_url",
-            image_url: { url: `data:image/jpeg;base64,${base64Image}` },
-          },
-        ],
-      },
-    ],
-  });
-  console.log(response.choices[0].message.content);
+  try {
+
+    const response = await openai.chat.completions.create({
+      model: selection,
+      messages: [
+        {
+          role: "user",
+          content: [
+            { type: "text", text: "get weekdays menu list from the image in Korean please." },
+            {
+              type: "image_url",
+              image_url: { url: `data:image/jpeg;base64,${base64Image}` },
+            },
+          ],
+        },
+      ],
+    });
+    console.log(response.choices[0].message.content);
+  } catch (err) {
+    console.error(err.error.message);
+  }
 
 }
 main()
