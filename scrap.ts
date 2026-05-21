@@ -138,5 +138,5 @@ const scrap = async (isSeoul: boolean) => {
     return true;
 }
 
-scrapHufs(true)
+scrap(true)
 export default scrap
