@@ -11,6 +11,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "@google/genai": "^2.5.0",
+    "@huggingface/inference": "^4.13.18",
     "@openrouter/agent": "^0.6.0",
     "@openrouter/sdk": "^0.12.35",
     "cors": "^2.8.6",
