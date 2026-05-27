@@ -6,7 +6,7 @@ import path from 'node:path';
 const img = path.join(process.cwd(), 'downloads', 'p.png');
 const genAI = new GoogleGenAI({apiKey: process.env.GOOGLE_API_KEY});
 
-const selection = "gemini-2.0-flash-exp"
+const selection = "gemini-3.5-flash"
 
 async function main() {
   const imagePath = img;
