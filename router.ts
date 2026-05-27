@@ -1,54 +1,36 @@
 import 'dotenv/config';
-import OpenAI from 'openai';
+import { GoogleGenAI } from "@google/genai";
 import fs from 'node:fs';
 import path from 'node:path';
+
 const img = path.join(process.cwd(), 'downloads', 'p.png');
-const openai = new OpenAI({
-  // baseURL: "https://integrate.api.nvidia.com/v1",
-  // apiKey: process.env.NVIDIA_NIM_API_KEY,
-  baseURL: 'https://openrouter.ai/api/v1',
-  apiKey: process.env.OPENROUTER_API_KEY,
-});
+const genAI = new GoogleGenAI({apiKey: process.env.GOOGLE_API_KEY});
 
-// const selection = "nvidia/nemotron-nano-12b-v2-vl"
-const selection = "google/gemma-4-26b-a4b-it:free"
+const selection = "gemini-2.0-flash-exp"
+
 async function main() {
-
-  // const completion = await openai.chat.completions.create({
-  //   model: selection,
-  //   messages: [
-  //     {
-  //       role: 'user',
-  //       content: 'What is Deepseek in short?',
-  //     },
-  //   ],
-  // });
-  // console.log(completion.choices[0].message);
-
   const imagePath = img;
-  const base64Image = fs.readFileSync(imagePath, "base64");
-  try {
+  const imageData = fs.readFileSync(imagePath);
 
-    const response = await openai.chat.completions.create({
+  try {
+    const response = await genAI.models.generateContent({
       model: selection,
-      messages: [
+      contents: [
+        "get weekdays menu list from the image in Korean please.",
         {
-          role: "user",
-          content: [
-            { type: "text", text: "get weekdays menu list from the image in Korean please." },
-            {
-              type: "image_url",
-              image_url: { url: `data:image/jpeg;base64,${base64Image}` },
-            },
-          ],
+          inlineData: {
+            data: imageData.toString('base64'),
+            mimeType: 'image/png',
+          },
         },
       ],
     });
-    console.log(response.choices[0].message.content);
+    
+    console.log(response.text);
   } catch (err) {
-    console.error(err.error.message);
+    console.error(err);
   }
-
 }
+
 main()
 export default main
